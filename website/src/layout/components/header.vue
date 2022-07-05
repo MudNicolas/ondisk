@@ -1,13 +1,14 @@
 <template>
     <NLayoutHeader>
-        header
+        <BreadCrumb />
         <NDropdown trigger="click" :show-arrow="true" :options="options" @select="handleSelect">
             <NAvatar size="large" class="avatar">M</NAvatar>
         </NDropdown>
     </NLayoutHeader>
 </template>
 <script setup lang="ts">
-import { NLayoutHeader, NAvatar, NDropdown, NIcon } from "naive-ui"
+import { NLayoutHeader, NAvatar, NDropdown } from "naive-ui"
+import BreadCrumb from "./bread_crumb.vue"
 
 const options = [
     {
