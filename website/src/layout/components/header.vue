@@ -23,7 +23,7 @@ const options = [
 
 const handleSelect = () => {}
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .n-layout-header,
 .n-layout-footer {
     height: 48px;
@@ -31,6 +31,7 @@ const handleSelect = () => {}
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0px 12px;
 
     .avatar {
         width: 32px;

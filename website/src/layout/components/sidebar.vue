@@ -36,7 +36,7 @@ let activeKey = ref<string | null>("home")
 
 const renderMenuLabel = (option: MenuOption) => {
     if ("path" in option) {
-        return h("RouterLink", { path: option.path }, option.label as string)
+        return h("Router-Link", { path: option.path }, option.label as string)
     }
     return option.label as string
 }
@@ -80,3 +80,9 @@ let menuOptions: MenuOption[] = [
     },
 ]
 </script>
+
+<style scoped lang="scss">
+.n-layout-sider {
+    border-right: 1px solid #e6e6e6;
+}
+</style>
