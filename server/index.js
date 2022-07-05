@@ -6,13 +6,22 @@ import cors from "cors"
 const app = express()
 app.use(
     cors({
-        origin: "http://localhost:8000",
-        credentials: true,
+        allowedHeaders: ["X-Requested-With", "content-type", "token"],
+        preflightContinue: false,
     })
 )
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true, length: "8000mb" }))
 
-mongoose.connect("mongodb://localhost:27017").then(() => {
-    app.listen(8080)
-})
+mongoose.connect(
+    "mongodb://127.0.0.1:27017/ondisk", // 在node.js version>=17 时，用127.0.0.1，不能用localhost
+    function (err) {
+        if (err) {
+            console.log("fail", err)
+        } else {
+            console.log("success")
+            /**监听http请求 */
+            app.listen(8080)
+        }
+    }
+)
