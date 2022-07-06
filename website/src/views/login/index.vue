@@ -77,3 +77,9 @@ const handleClick = () => {
     }
 }
 </style>
+
+<style>
+input[type="password"]::-ms-reveal {
+    display: none;
+}
+</style>
