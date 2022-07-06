@@ -54,10 +54,6 @@ service.interceptors.response.use(
 
         // if the custom code is not 20000, it is judged as an error.
         if (res.code !== 20000) {
-            if (res.code === 1023) {
-                router.push({ name: "Verificate", params: res.data })
-            }
-
             message.error(res.message || "Error", { duration: 5000 })
 
             //401 404
