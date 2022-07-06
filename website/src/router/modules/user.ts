@@ -1,34 +1,43 @@
 import { NIcon } from "naive-ui"
 import { Component, h } from "vue"
-import { BookOutline, PersonOutline, WineOutline } from "@vicons/ionicons5"
 import Layout from "@/layout/index.vue"
-import { MenuItem } from "@/type/index"
+import { route } from "@/type/index"
 
 function renderIcon(icon: Component) {
     return () => h(NIcon, null, { default: () => h(icon) })
 }
 
-const menuOptions: MenuItem[] = [
+const userRoutes: route[] = [
     {
-        label: "首页",
         path: "/",
-        key: "home",
-        name: "home",
-        icon: renderIcon(BookOutline),
+        key: "disk",
         component: Layout,
+        meta: {
+            role: "user",
+            icon: "BookOutline",
+            title: "我的网盘",
+        },
     },
     {
-        label: "文章",
-        path: "/article",
-        key: "article",
-        icon: renderIcon(PersonOutline),
+        path: "/fav",
+        key: "fav",
+        component: Layout,
+        meta: {
+            role: "user",
+            icon: "PersonOutline",
+            title: "收藏",
+        },
     },
     {
-        label: "关于",
-        key: "about",
-        path: "/about",
-        icon: renderIcon(WineOutline),
+        key: "share",
+        path: "/share",
+        component: Layout,
+        meta: {
+            role: "user",
+            icon: "WineOutline",
+            title: "分享",
+        },
     },
 ]
 
-export default menuOptions
+export default userRoutes
