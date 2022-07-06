@@ -24,12 +24,10 @@
 </template>
 <script setup lang="ts">
 import { NLayoutSider, NMenu, MenuOption, NIcon } from "naive-ui"
-import { ref, h, Component } from "vue"
-import {
-    BookOutline as BookIcon,
-    PersonOutline as PersonIcon,
-    WineOutline as WineIcon,
-} from "@vicons/ionicons5"
+import { ref, h, Component, computed } from "vue"
+import { mapGetters } from "vuex"
+
+computed(mapGetters(["router"]))
 
 let collapsed = ref<boolean>(false)
 let activeKey = ref<string | null>("home")
@@ -40,45 +38,16 @@ const renderMenuLabel = (option: MenuOption) => {
     }
     return option.label as string
 }
-
 const renderMenuIcon = (option: MenuOption) => {
     // 渲染图标占位符以保持缩进
-    if (option.key === "sheep-man") return true
+    //if (option.key === "sheep-man") return true
     // 返回 falsy 值，不再渲染图标及占位符
-    if (option.key === "food") return null
-    return h(NIcon, null, { default: () => h(BookIcon) })
+    //if (option.key === "food") return null
+    return h(NIcon, null, { default: () => h(<Component>option.icon) })
 }
-
-function renderIcon(icon: Component) {
-    return () => h(NIcon, null, { default: () => h(icon) })
+const expandIcon = (option: MenuOption) => {
+    return h(NIcon, null, { default: () => h(<Component>option.icon) })
 }
-
-const expandIcon = () => {
-    return h(NIcon, null, { default: () => h(PersonIcon) })
-}
-
-//test data
-let menuOptions: MenuOption[] = [
-    {
-        label: "首页",
-        path: "/",
-        key: "home",
-        name: "home",
-        icon: renderIcon(BookIcon),
-    },
-    {
-        label: "文章",
-        path: "/article",
-        key: "article",
-        icon: renderIcon(PersonIcon),
-    },
-    {
-        label: "关于",
-        key: "about",
-        path: "/about",
-        icon: renderIcon(WineIcon),
-    },
-]
 </script>
 
 <style scoped lang="scss">
