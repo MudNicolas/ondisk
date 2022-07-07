@@ -128,4 +128,7 @@ function getOtherQuery(query: LocationQuery) {
 input[type="password"]::-ms-reveal {
     display: none;
 }
+input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset;
+}
 </style>
