@@ -17,7 +17,6 @@ const userData = reactive({
 
 const handleClick = () => {
     loading.value = true
-    console.log(userData)
     store
         .dispatch("user/handleLogin", userData)
         .then(() => {
@@ -25,8 +24,8 @@ const handleClick = () => {
             router.push("/")
         })
         .catch(err => {
+            console.log("err:" + err.message)
             loading.value = false
-            console.log(err)
         })
 }
 </script>

@@ -18,7 +18,6 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         // do something before request is sent
-        console.log(store)
         if (config?.headers && store.state.user.token) {
             // let each request carry token
             // ['token'] is a custom headers key
@@ -81,7 +80,6 @@ service.interceptors.response.use(
         }
     },
     error => {
-        console.log("err" + error) // for debug
         message.error(error.message, {
             duration: 5 * 1000,
         })
