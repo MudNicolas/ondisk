@@ -1,16 +1,19 @@
 import { NIcon } from "naive-ui"
 import { Component, h } from "vue"
 import Layout from "@/layout/index.vue"
-import { route } from "@/type/index"
+import { RouteRecordRaw } from "vue-router"
 
 function renderIcon(icon: Component) {
     return () => h(NIcon, null, { default: () => h(icon) })
 }
 
-const userRoutes: route[] = [
+const userRoutes: RouteRecordRaw[] = [
     {
         path: "/",
-        key: "disk",
+        redirect: "/drive",
+    },
+    {
+        path: "/drive",
         component: Layout,
         meta: {
             role: "user",
@@ -20,7 +23,6 @@ const userRoutes: route[] = [
     },
     {
         path: "/fav",
-        key: "fav",
         component: Layout,
         meta: {
             role: "user",
@@ -29,7 +31,6 @@ const userRoutes: route[] = [
         },
     },
     {
-        key: "share",
         path: "/share",
         component: Layout,
         meta: {

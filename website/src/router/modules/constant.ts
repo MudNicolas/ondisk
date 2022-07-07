@@ -10,10 +10,6 @@ const constantRoutes: RouteRecordRaw[] = [
         },
     },
     {
-        path: "/",
-        redirect: "/drive",
-    },
-    {
         path: "/redirect",
         component: Layout,
         children: [
