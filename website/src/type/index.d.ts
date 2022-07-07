@@ -7,6 +7,7 @@ export declare type routeRaw = {
     key: string | number
     component?: Component
     hidden?: boolean
+    redirect?: string
     meta?: {
         title: string
         icon?: string
@@ -14,8 +15,8 @@ export declare type routeRaw = {
     }
 }
 
-export declare type routeWithChildren = route & {
-    children: route
+export declare type routeWithChildren = routeRaw & {
+    children: routeRaw[]
 }
 
 export declare type userInfoData = {

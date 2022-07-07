@@ -11,11 +11,18 @@ const constantRoutes: route[] = [
         },
     },
     {
+        key: "/",
+        path: "/",
+        redirect: "/drive",
+    },
+    {
         path: "/redirect",
+        key: "redirectRoot",
         component: Layout,
         hidden: true,
         children: [
             {
+                key: "redirectBody",
                 path: "/redirect/:path(.*)",
                 component: () => import("@/views/redirect/index.vue"),
             },
@@ -23,6 +30,7 @@ const constantRoutes: route[] = [
     },
     {
         path: "/401",
+        key: "401",
         component: () => import("@/views/error-page/401.vue"),
         hidden: true,
         meta: {
@@ -31,6 +39,7 @@ const constantRoutes: route[] = [
     },
     {
         path: "/404",
+        key: "404",
         component: () => import("@/views/error-page/404.vue"),
         hidden: true,
         meta: {
