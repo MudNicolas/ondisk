@@ -1,11 +1,10 @@
 // axios interrupts the flow of the program and waits for the response
 import axios from "axios"
 import { createDiscreteApi, DialogReactive } from "naive-ui"
-import { useStore } from "vuex"
 import { getToken } from "@/utils/auth"
 import router from "@/router"
+import store from "@/store"
 
-const store = useStore()
 const { message, dialog } = createDiscreteApi(["message", "dialog"])
 
 // create an axios instance
@@ -19,7 +18,8 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         // do something before request is sent
-        if (config?.headers && store.getters.token) {
+        console.log(store)
+        if (config?.headers && store.state.user.token) {
             // let each request carry token
             // ['token'] is a custom headers key
             // please modify it according to the actual situation

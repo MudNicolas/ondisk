@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
+import { useStore } from "vuex"
 import { NInput, NSpace, NIcon, NButton } from "naive-ui"
 import { Person, FingerPrintOutline, CloudCircle, GlassesOutline, Glasses } from "@vicons/ionicons5"
 import { ref, reactive } from "vue"
 import { handleLogin } from "@/api/user"
 
 const router = useRouter()
+const store = useStore()
 const loading = ref(false)
 const userData = reactive({
     username: "",
@@ -16,7 +18,8 @@ const userData = reactive({
 const handleClick = () => {
     loading.value = true
     console.log(userData)
-    handleLogin(userData)
+    store
+        .dispatch("user/handleLogin", userData)
         .then(() => {
             loading.value = false
             router.push("/")
