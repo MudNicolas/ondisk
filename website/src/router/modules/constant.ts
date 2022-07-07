@@ -1,4 +1,3 @@
-import { route } from "@/type/index"
 import { RouteRecordRaw } from "vue-router"
 import Layout from "@/layout/index.vue"
 const constantRoutes: RouteRecordRaw[] = [

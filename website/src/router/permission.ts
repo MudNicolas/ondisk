@@ -22,7 +22,7 @@ router.beforeEach(
 
         // determine whether the user has logged in
         const hasToken = getToken()
-
+        console.log(!!hasToken)
         if (hasToken) {
             if (to.path === "/login") {
                 // if is logged in, redirect to the home page
@@ -30,17 +30,15 @@ router.beforeEach(
                 loadingBar.finish()
             } else {
                 // determine whether the user has obtained his permission roles through getInfo
-                const hasRoles = store.getters.roles
+                const hasRoles = store.state.user.role
                 // console.log(hasRoles, "?")
                 if (hasRoles) {
                     next()
                 } else {
                     try {
                         // get user info
-                        const { roles } = await store.dispatch("user/getInfo")
-                        // generate accessible routes map based on roles
-                        // hack method to ensure that addRoutes is complete
-                        // set the replace: true, so the navigation will not leave a history record
+                        await store.dispatch("user/getInfo")
+
                         next({ ...to, replace: true })
                     } catch (error) {
                         // remove token and go to login page to re-login
