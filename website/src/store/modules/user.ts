@@ -49,6 +49,13 @@ const actions = {
                 })
         })
     },
+    resetToken({ commit }: ActionContext<userInfoData, any>) {
+        return new Promise((resolve, reject) => {
+            commit("SET_TOKEN", "")
+            resolve(true)
+        })
+    },
+    getInfo({ commit }: ActionContext<userInfoData, any>) {},
 }
 
 export default {

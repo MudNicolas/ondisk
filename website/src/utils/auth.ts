@@ -1,1 +1,3 @@
-export const getToken = () => "123"
+import store from "@/store"
+
+export const getToken = () => store.state.user.token
