@@ -1,16 +1,30 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router"
 import { NInput, NSpace, NIcon, NButton } from "naive-ui"
 import { Person, FingerPrintOutline, CloudCircle, GlassesOutline, Glasses } from "@vicons/ionicons5"
-import { ref } from "vue"
+import { ref, reactive } from "vue"
+import { handleLogin } from "@/api/user"
 
+const router = useRouter()
 const loading = ref(false)
+const userData = reactive({
+    username: "",
+    password: "",
+    role: "user",
+})
 
 const handleClick = () => {
     loading.value = true
-    console.log(1)
-    setTimeout(() => {
-        loading.value = false
-    }, 1000)
+    console.log(userData)
+    handleLogin(userData)
+        .then(() => {
+            loading.value = false
+            router.push("/")
+        })
+        .catch(err => {
+            loading.value = false
+            console.log(err)
+        })
 }
 </script>
 
@@ -22,12 +36,13 @@ const handleClick = () => {
                     <NIcon :component="CloudCircle" size="64" color="#0e7a0d" />
                 </div>
 
-                <NInput size="large" round placeholder="Username">
+                <NInput v-model:value="userData.username" size="large" round placeholder="Username">
                     <template #prefix>
                         <NIcon :component="Person" />
                     </template>
                 </NInput>
                 <NInput
+                    v-model:value="userData.password"
                     size="large"
                     round
                     placeholder="Password"

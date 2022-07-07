@@ -17,3 +17,18 @@ export declare type routeRaw = {
 export declare type routeWithChildren = route & {
     children: route
 }
+
+export declare type userInfoData = {
+    nickname: string
+    username: string
+    avatar: string
+    token: string
+    role: string
+    uid: string
+}
+
+export declare type loginUserData = {
+    username: string
+    password: string
+    role: string
+}
