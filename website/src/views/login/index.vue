@@ -36,7 +36,7 @@ function handleLoginBtnClick(): void {
         .then(() => {
             loading.value = false
             router.push({
-                path: <string>redirect || "/",
+                path: <string>redirect || "/drive",
                 query: otherQuery,
             })
         })
