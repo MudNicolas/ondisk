@@ -1,7 +1,7 @@
 import md5 from "js-md5"
 import { loginUserData } from "@/type/index"
 import { userInfoData } from "@/type"
-import { handleLogin } from "@/api/user"
+import { handleLogin, handleGetUserInfo } from "@/api/user"
 import { ActionContext } from "vuex"
 
 const state: userInfoData = {
@@ -55,7 +55,23 @@ const actions = {
             resolve(true)
         })
     },
-    getInfo({ commit }: ActionContext<userInfoData, any>) {},
+    getInfo({ commit }: ActionContext<userInfoData, any>) {
+        return new Promise((resolve, reject) => {
+            handleGetUserInfo()
+                .then(response => {
+                    const { data } = response
+                    commit("SET_NICKNAME", data.nickname)
+                    commit("SET_USERNAME", data.username)
+                    commit("SET_AVATAR", data.avatar)
+                    commit("SET_ROLE", data.role)
+                    commit("SET_UID", data.uid)
+                    resolve(true)
+                })
+                .catch(error => {
+                    reject(error)
+                })
+        })
+    },
 }
 
 export default {

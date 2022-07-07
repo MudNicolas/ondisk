@@ -4,7 +4,7 @@ const router = express()
 
 router.post("/", (req, res) => {
     res.json({
-        code: 20000,
+        code: 0,
         data: {
             token: 123,
         },
