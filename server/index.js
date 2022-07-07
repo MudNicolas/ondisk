@@ -3,6 +3,8 @@ import mongoose from "mongoose"
 import bodyParser from "body-parser"
 import cors from "cors"
 
+import services from "./services/index.js"
+
 const app = express()
 app.use(
     cors({
@@ -12,6 +14,7 @@ app.use(
 )
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true, length: "8000mb" }))
+app.use("/api", services)
 
 mongoose.connect(
     "mongodb://127.0.0.1:27017/ondisk", // 在node.js version>=17 时，用127.0.0.1，不能用localhost
