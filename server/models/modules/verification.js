@@ -6,5 +6,6 @@ export default mongoose.model(
         uid: mongoose.Schema.Types.ObjectId,
         time: Date,
         role: String,
+        sessionID: String,
     })
 )
