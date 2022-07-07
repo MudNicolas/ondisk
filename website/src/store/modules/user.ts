@@ -3,6 +3,7 @@ import { loginUserData } from "@/type/index"
 import { userInfoData } from "@/type"
 import { handleLogin, handleGetUserInfo } from "@/api/user"
 import { ActionContext } from "vuex"
+import { setToken, removeToken } from "@/utils/auth"
 
 const state: userInfoData = {
     nickname: "",
@@ -42,6 +43,7 @@ const actions = {
                 .then(response => {
                     const { data } = response
                     commit("SET_TOKEN", data.token)
+                    setToken(data.token)
                     resolve(true)
                 })
                 .catch(error => {
