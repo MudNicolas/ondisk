@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router"
+import { useRouter, useRoute, LocationQueryValue, LocationQuery } from "vue-router"
 import { useStore } from "vuex"
 import { NInput, NSpace, NIcon, NButton } from "naive-ui"
 import { Person, FingerPrintOutline, CloudCircle, GlassesOutline, Glasses } from "@vicons/ionicons5"
-import { ref, reactive } from "vue"
-import { handleLogin } from "@/api/user"
+import { ref, reactive, watch } from "vue"
 
 const router = useRouter()
+const $route = useRoute()
 const store = useStore()
 const loading = ref(false)
 const userData = reactive({
@@ -15,18 +15,47 @@ const userData = reactive({
     role: "user",
 })
 
-const handleClick = () => {
+let redirect: LocationQueryValue | readonly LocationQueryValue[] = null
+let otherQuery: Record<string, LocationQueryValue | readonly LocationQueryValue[]> = {}
+
+watch(
+    () => $route.query,
+    query => {
+        if (query) {
+            redirect = query.redirect
+            otherQuery = getOtherQuery(query)
+        }
+    },
+    { immediate: true }
+)
+
+function handleLoginBtnClick(): void {
     loading.value = true
     store
         .dispatch("user/handleLogin", userData)
         .then(() => {
             loading.value = false
-            router.push("/")
+            router.push({
+                path: <string>redirect || "/",
+                query: otherQuery,
+            })
         })
         .catch(err => {
             console.log("err:" + err.message)
             loading.value = false
         })
+}
+
+function getOtherQuery(query: LocationQuery) {
+    return Object.keys(query).reduce(
+        (acc: Record<string, LocationQueryValue | readonly LocationQueryValue[]>, cur: string) => {
+            if (cur !== "redirect") {
+                acc[cur] = query[cur]
+            }
+            return acc
+        },
+        {}
+    )
 }
 </script>
 
@@ -66,7 +95,7 @@ const handleClick = () => {
                     type="primary"
                     style="width: 100%"
                     :loading="loading"
-                    @click="handleClick"
+                    @click="handleLoginBtnClick"
                 >
                     Login
                 </NButton>
