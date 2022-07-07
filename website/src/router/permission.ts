@@ -40,7 +40,6 @@ router.beforeEach(
                         accessRoutes.forEach(route => {
                             router.addRoute(route)
                         })
-                        console.log(router)
                         next({ ...to, replace: true })
                     } catch (error) {
                         // remove token and go to login page to re-login

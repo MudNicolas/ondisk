@@ -54,6 +54,7 @@ const actions = {
     resetToken({ commit }: ActionContext<userInfoData, any>) {
         return new Promise((resolve, reject) => {
             commit("SET_TOKEN", "")
+            removeToken()
             resolve(true)
         })
     },
