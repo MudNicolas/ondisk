@@ -2,8 +2,7 @@ import router from "@/router"
 import store from "@/store"
 import { createDiscreteApi } from "naive-ui"
 import { getToken } from "@/utils/auth" // get token from cookie
-import { NavigationGuardNext, RouteLocationNormalized } from "vue-router"
-//import getPageTitle from '@/utils/get-page-title'
+import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from "vue-router"
 const { loadingBar, message } = createDiscreteApi(["loadingBar", "message"])
 
 const whiteList: string[] = ["/login", "/auth-redirect"] // no redirect whitelist
@@ -16,9 +15,6 @@ router.beforeEach(
     ) => {
         // start progress bar
         loadingBar.start()
-
-        // set page title
-        //document.title = getPageTitle(to.meta.title)
 
         // determine whether the user has logged in
         const hasToken = getToken()
@@ -38,7 +34,14 @@ router.beforeEach(
                     try {
                         // get user info
                         await store.dispatch("user/getInfo")
-
+                        // generate accessible routes map based on roles
+                        const accessRoutes: RouteRecordRaw[] = await import(
+                            `./modules/${store.state.user.role}`
+                        ).then(module => module.default)
+                        accessRoutes.forEach(route => {
+                            router.addRoute(route)
+                        })
+                        console.log(router)
                         next({ ...to, replace: true })
                     } catch (error) {
                         // remove token and go to login page to re-login

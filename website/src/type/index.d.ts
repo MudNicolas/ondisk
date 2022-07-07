@@ -1,3 +1,4 @@
+import { RouteRecordRaw } from "vue-router"
 import { Component } from "vue"
 
 export declare type route = routeRaw | routeWithChildren
@@ -32,4 +33,9 @@ export declare type loginUserData = {
     username: string
     password: string
     role: string
+}
+
+export declare type routeState = {
+    routes: RouteRecordRaw[]
+    addRoutes: RouteRecordRaw[]
 }
