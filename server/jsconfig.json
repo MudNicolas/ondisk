@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "#services/*": ["routers/services/*"],
+            "#models/*": ["models/*"],
+            "#root/*": ["*"],
+            "#utils/*": ["utils/*"]
+        }
+    },
+    "exclude": ["node_modules"],
+    "allowJS": true
+}
