@@ -1,6 +1,7 @@
 import express from "express"
+import { nanoid } from "nanoid"
 import { User, Verification } from "#models/index.js"
-import { sha512, AESEncode } from "#utils/index.js"
+import { sha512 } from "#utils/index.js"
 
 const router = express()
 
@@ -29,25 +30,18 @@ router.post("/", async (req, res) => {
             })
         }
 
+        const sessionID = nanoid()
+
         let verification = new Verification({
             uid,
             time: new Date(),
             role,
+            sessionID,
         })
-        let v = await verification.save()
-
-        let token = AESEncode(
-            {
-                uid: v.uid,
-                loginTime: v.loginTime,
-                role: v.role,
-            },
-            salt
-        )
-
+        await verification.save()
         return res.json({
             code: 0,
-            data: { token },
+            data: { token: sessionID },
         })
     } catch (err) {
         console.log(err)

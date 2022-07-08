@@ -8,6 +8,7 @@ import services from "./services/index.js"
 const app = express()
 app.use(
     cors({
+        origin: "*",
         allowedHeaders: ["X-Requested-With", "content-type", "token"],
         preflightContinue: false,
     })

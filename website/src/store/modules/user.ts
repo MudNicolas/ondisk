@@ -3,13 +3,13 @@ import { loginUserData } from "@/type/index"
 import { userInfoData } from "@/type"
 import { handleLogin, handleGetUserInfo } from "@/api/user"
 import { ActionContext } from "vuex"
-import { setToken, removeToken } from "@/utils/auth"
+import { setToken, removeToken, getToken } from "@/utils/auth"
 
 const state: userInfoData = {
     nickname: "",
     username: "",
     avatar: "",
-    token: "",
+    token: getToken(),
     role: "",
     uid: "",
 }

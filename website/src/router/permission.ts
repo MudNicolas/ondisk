@@ -25,7 +25,7 @@ router.beforeEach(
                 loadingBar.finish()
             } else {
                 // determine whether the user has obtained his permission roles through getInfo
-                const hasRoles = store.state.user.role
+                const hasRoles: string | null = store.state.user.role
                 // console.log(hasRoles, "?")
                 if (hasRoles) {
                     next()

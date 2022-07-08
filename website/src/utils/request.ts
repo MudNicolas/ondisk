@@ -24,7 +24,7 @@ service.interceptors.request.use(
             // please modify it according to the actual situation
             config.headers["token"] = getToken()
         }
-        // console.log(config)
+
         return config
     },
     error => {
