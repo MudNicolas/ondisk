@@ -25,13 +25,13 @@
 <script setup lang="ts">
 import { NLayoutSider, NMenu, MenuOption, NIcon } from "naive-ui"
 import { ref, h, Component, computed } from "vue"
+import { useRouter, RouterLink } from "vue-router"
 import { useStore } from "vuex"
-
-const store = useStore()
-const menuOptions = computed(() => store.getters.router)
 
 let collapsed = ref<boolean>(false)
 let activeKey = ref<string | null>("home")
+const store = useStore()
+const menuOptions = store.state.menuOption.menuOptions
 
 const renderMenuLabel = (option: MenuOption) => {
     if ("path" in option) {

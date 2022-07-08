@@ -2,7 +2,9 @@ import router from "@/router"
 import store from "@/store"
 import { createDiscreteApi } from "naive-ui"
 import { getToken } from "@/utils/auth" // get token from cookie
-import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw } from "vue-router"
+import setSideMenu from "./modules/menu"
+import { NavigationGuardNext, RouteLocationNormalized } from "vue-router"
+import { handleGetRoute } from "@/api/route"
 const { loadingBar, message } = createDiscreteApi(["loadingBar", "message"])
 
 const whiteList: string[] = ["/login", "/auth-redirect"] // no redirect whitelist
@@ -34,12 +36,21 @@ router.beforeEach(
                         // get user info
                         await store.dispatch("user/getInfo")
                         // generate accessible routes map based on roles
-                        const accessRoutes: RouteRecordRaw[] = await import(
-                            `./modules/${store.state.user.role}`
-                        ).then(module => module.default)
-                        accessRoutes.forEach(route => {
-                            router.addRoute(route)
-                        })
+
+                        const { data } = await handleGetRoute()
+
+                        const { routes, menuOptions } = data
+
+                        for (let e of routes) {
+                            console.log(e)
+                            e.component = () => import("@/layout/index.vue")
+                            router.addRoute(e)
+                        }
+
+                        setSideMenu(menuOptions)
+
+                        console.log(data)
+
                         next({ ...to, replace: true })
                     } catch (error) {
                         // remove token and go to login page to re-login
