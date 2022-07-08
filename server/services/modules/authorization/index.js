@@ -5,7 +5,6 @@ let router = Router()
 
 router.use(async (req, res, next) => {
     const token = req?.headers?.token
-    console.log(req.headers.token)
     if (!token) {
         return res.json({
             message: "口令错误",
